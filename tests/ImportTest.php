@@ -12,6 +12,6 @@ class ImportTest extends TestCase
 {
     public function testImport()
     {
-        include "../import.php";
+        require_once '../import.php';
     }
 }

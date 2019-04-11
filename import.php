@@ -6,22 +6,24 @@
  * Time: 19:17
  */
 
+use Curl\Curl;
+
 require_once 'vendor/autoload.php';
 
 define("URL", "ms-indexer.local");
-define("LIMIT", 10);
+define("LIMIT", 5);
 
 $startParams = [
     'products'  => '[{"visible":{"e":"1"}}]',
     'documents' => '[{"visible":{"e":"1"}}]',
-    'pages'     => '[{"visible":{"e":"1"}}]',
+    //'pages'     => '[{"visible":{"e":"1"}}]',
 ];
 
 $startParams['limit'] = LIMIT;
 
 $url = URL . '/v1/elasticsearch/import?';
 
-$curl = new \Curl\Curl();
+$curl = new Curl();
 
 $request = $curl->get($url . http_build_query($startParams));
 
@@ -44,6 +46,9 @@ if ($request->http_status_code == 200) {
             ];
 
             $request = $curl->get($url . http_build_query($params));
+            $count   = round((LIMIT * $i) / $datum['attributes']['total'] * 100);
+
+            print "{$datum['type']}: {$count}%\r";
         }
     }
 }
