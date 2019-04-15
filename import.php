@@ -10,14 +10,7 @@ use Curl\Curl;
 
 require_once 'vendor/autoload.php';
 
-define("URL", "ms-indexer.local");
-define("LIMIT", 5);
-
-$startParams = [
-    'products'  => '[{"visible":{"e":"1"}}]',
-    'documents' => '[{"visible":{"e":"1"}}]',
-    //'pages'     => '[{"visible":{"e":"1"}}]',
-];
+$startParams = require_once ('config.php');
 
 $startParams['limit'] = LIMIT;
 
@@ -48,7 +41,7 @@ if ($request->http_status_code == 200) {
             $request = $curl->get($url . http_build_query($params));
             $count   = round((LIMIT * $i) / $datum['attributes']['total'] * 100);
 
-            print "{$datum['type']}: {$count}%\r";
+            print "{$datum['type']}: {$count}%                                                 \r";
         }
     }
 }

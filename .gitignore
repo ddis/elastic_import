@@ -3,3 +3,5 @@ tests/.phpunit.result.cache
 vendor
 .idea
 composer.lock
+
+config.php
