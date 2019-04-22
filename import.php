@@ -14,7 +14,7 @@ $startParams = require_once ('config.php');
 
 $startParams['limit'] = LIMIT;
 
-$url = URL . '/v1/elasticsearch/import?';
+$url = URL . '/v1/elasticindexer/import?';
 
 $curl = new Curl();
 
