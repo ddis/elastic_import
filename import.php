@@ -10,13 +10,15 @@ use Curl\Curl;
 
 require_once 'vendor/autoload.php';
 
-$startParams = require_once ('config.php');
+$startParams = require_once('config.php');
 
 $startParams['limit'] = LIMIT;
 
 $url = URL . '/v1/elasticindexer/import?';
 
 $curl = new Curl();
+
+$curl->setCookie("XDEBUG_SESSION", "PHPSTORM");
 
 $request = $curl->get($url . http_build_query($startParams));
 
@@ -44,4 +46,8 @@ if ($request->http_status_code == 200) {
             print "{$datum['type']}: {$count}%                                                 \r";
         }
     }
+} else {
+    print "Error:";
+    var_dump($request);
 }
+
